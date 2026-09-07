@@ -1,8 +1,16 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { volume1Info, secoesVolume1 } from "@/data/volume1";
 import { ArrowRight, BookOpen, Clock, ChevronRight } from "lucide-react";
 
-export default function VolumeDetailPage({ params }: { params: { slug: string } }) {
+export default async function VolumeDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  if (slug !== "volume-1") return notFound();
+
   const caps = secoesVolume1.filter((s) => s.tipo === "capitulo");
 
   return (

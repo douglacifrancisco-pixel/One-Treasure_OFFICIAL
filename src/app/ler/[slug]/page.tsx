@@ -1,6 +1,6 @@
 "use client";
 import { notFound } from "next/navigation";
-import { useState, useEffect } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { secoesVolume1 } from "@/data/volume1";
 import {
@@ -20,8 +20,13 @@ import {
   List,
 } from "lucide-react";
 
-export default function LeitorPage({ params }: { params: { slug: string } }) {
-  const currentIndex = secoesVolume1.findIndex((s) => s.slug === params.slug);
+export default function LeitorPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = use(params);
+  const currentIndex = secoesVolume1.findIndex((s) => s.slug === slug);
   if (currentIndex === -1) return notFound();
 
   const item = secoesVolume1[currentIndex];

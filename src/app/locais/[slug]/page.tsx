@@ -3,8 +3,13 @@ import Link from "next/link";
 import { locaisVolume1 } from "@/data/volume1";
 import { MapPin, AlertTriangle, Users } from "lucide-react";
 
-export default function LocalDetailPage({ params }: { params: { slug: string } }) {
-  const loc = locaisVolume1.find((x) => x.slug === params.slug);
+export default async function LocalDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const loc = locaisVolume1.find((x) => x.slug === slug);
   if (!loc) return notFound();
 
   return (

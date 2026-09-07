@@ -1,12 +1,17 @@
 "use client";
 import { notFound } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import { personagensVolume1 } from "@/data/volume1";
 import { Shield, Eye, EyeOff } from "lucide-react";
 
-export default function PersonagemDetailPage({ params }: { params: { slug: string } }) {
-  const p = personagensVolume1.find((x) => x.slug === params.slug);
+export default function PersonagemDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = use(params);
+  const p = personagensVolume1.find((x) => x.slug === slug);
   if (!p) return notFound();
 
   const [showSpoilers, setShowSpoilers] = useState(false);
