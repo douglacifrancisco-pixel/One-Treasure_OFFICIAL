@@ -5,14 +5,14 @@ import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "One Treasure — Volume 1 Oficial",
-    template: "%s | One Treasure — Volume 1",
+    default: "One Treasure — Biblioteca Oficial",
+    template: "%s | One Treasure",
   },
   description:
-    "Arquivo oficial restrito ao Volume 1: Sinopse, Arquivo 0, Prólogo e Capítulos 1 a 10 completos de One Treasure: O Homem que Enganou o Mundo.",
+    "Biblioteca oficial de One Treasure com leitura guiada, progresso local e volumes desbloqueados em sequência.",
   openGraph: {
-    title: "One Treasure — Volume 1 Oficial",
-    description: "Sinopse, Arquivo 0, Prólogo e Capítulos 1 a 10 de One Treasure.",
+    title: "One Treasure — Biblioteca Oficial",
+    description: "Acompanhe a saga de One Treasure em uma leitura guiada por volumes.",
     type: "website",
   },
 };

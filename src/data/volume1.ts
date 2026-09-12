@@ -15,6 +15,7 @@ export interface CapituloItem {
   conteudoTexto: string;
   dataPublicacao?: string;
   spoilerLevel?: number;
+  volumeNumero?: number;
 }
 
 export const volume1Info = {

@@ -21,9 +21,25 @@ export function isRead(slug: string): boolean {
   return localStorage.getItem(`${PREFIX}read_${slug}`) === "1";
 }
 
+export function isComplete(slug: string): boolean {
+  return isRead(slug) || getProgress(slug) >= 95;
+}
+
 export function markRead(slug: string) {
   if (typeof window === "undefined") return;
   localStorage.setItem(`${PREFIX}read_${slug}`, "1");
+  localStorage.setItem(`${PREFIX}prog_${slug}`, "100");
+  localStorage.setItem(`${PREFIX}last`, slug);
+}
+
+export function isQuizPassed(volumeNumero: number): boolean {
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem(`${PREFIX}quiz_${volumeNumero}`) === "passed";
+}
+
+export function markQuizPassed(volumeNumero: number) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(`${PREFIX}quiz_${volumeNumero}`, "passed");
 }
 
 export function getFavorites(): { tipo: string; id: string; titulo: string }[] {

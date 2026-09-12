@@ -17,7 +17,7 @@ export default function Header() {
     { href: "/sinopse", label: "Sinopse" },
     { href: "/arquivo-0", label: "Arquivo 0" },
     { href: "/prologo", label: "Prólogo" },
-    { href: "/volumes", label: "Volume 1" },
+    { href: "/volumes", label: "Volumes" },
     { href: "/personagens", label: "Personagens" },
     { href: "/locais", label: "Locais" },
     { href: "/cronologia", label: "Cronologia" },
@@ -48,7 +48,7 @@ export default function Header() {
               One Treasure
             </span>
             <span className="font-ui text-[9px] tracking-widest text-[#D7A83E]/70 uppercase mt-0.5">
-              Volume 1 Oficial
+               Biblioteca Oficial
             </span>
           </div>
         </Link>
@@ -66,7 +66,7 @@ export default function Header() {
           <Link
             href="/buscar"
             className="p-2 text-[#D7A83E] hover:text-[#F4D77A] rounded transition-colors"
-            aria-label="Pesquisar no Volume 1"
+             aria-label="Pesquisar na biblioteca"
           >
             <Search size={18} />
           </Link>
