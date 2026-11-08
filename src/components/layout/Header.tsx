@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Search, BookOpen } from "lucide-react";
+import { Menu, X, Search, BookOpen, Castle, Shield, Beer, Landmark, Skull } from "lucide-react";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -13,17 +13,12 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { href: "/sinopse", label: "Sinopse" },
-    { href: "/arquivo-0", label: "Arquivo 0" },
-    { href: "/prologo", label: "Prólogo" },
-    { href: "/volumes", label: "Volumes" },
-    { href: "/personagens", label: "Personagens" },
-    { href: "/locais", label: "Locais" },
-    { href: "/cronologia", label: "Cronologia" },
-    { href: "/pistas", label: "Pistas" },
-    { href: "/frases", label: "Frases" },
-    { href: "/sobre", label: "Sobre" },
+  const navHub = [
+    { href: "/", label: "Capital Mihara", icon: Castle },
+    { href: "/guilda", label: "Guilda (Quests)", icon: Shield },
+    { href: "/taberna", label: "Taberna", icon: Beer },
+    { href: "/prefeitura", label: "Prefeitura", icon: Landmark },
+    { href: "/thassalar", label: "Thassalar (One Treasure)", icon: Skull, highlight: true },
   ];
 
   return (
@@ -39,96 +34,86 @@ export default function Header() {
       </a>
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <BookOpen
-            size={22}
+          <Castle
+            size={24}
             className="text-[#D7A83E] group-hover:text-[#F4D77A] transition-colors"
           />
           <div className="flex flex-col">
             <span className="font-serif font-black text-[#F4D77A] tracking-wider text-base uppercase leading-none">
-              One Treasure
+              JUST ONE NOVEL
             </span>
             <span className="font-ui text-[9px] tracking-widest text-[#D7A83E]/70 uppercase mt-0.5">
-               Biblioteca Oficial
+              Beyond the Stories
             </span>
           </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden xl:flex items-center gap-5" aria-label="Navegação principal">
-          {navItems.map((n) => (
-            <Link key={n.href} href={n.href} className="nav-link text-xs">
-              {n.label}
+        <nav className="hidden lg:flex items-center gap-1.5" aria-label="Navegação principal">
+          {navHub.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`px-3 py-1.5 rounded text-xs font-ui tracking-wider transition-colors flex items-center gap-1.5 ${
+                item.highlight
+                  ? "bg-[#8F1D2C]/30 border border-[#8F1D2C] text-[#F87171] hover:bg-[#8F1D2C]/50"
+                  : "text-[rgba(242,233,208,0.85)] hover:text-[#F4D77A] hover:bg-[#0C3550]/40"
+              }`}
+            >
+              <item.icon size={13} className={item.highlight ? "text-[#F87171]" : "text-[#D7A83E]"} />
+              {item.label}
             </Link>
           ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
           <Link
             href="/buscar"
-            className="p-2 text-[#D7A83E] hover:text-[#F4D77A] rounded transition-colors"
-             aria-label="Pesquisar na biblioteca"
+            aria-label="Buscar no acervo"
+            className="p-2 text-[rgba(242,233,208,0.7)] hover:text-[#F4D77A] transition-colors ml-1"
+          >
+            <Search size={16} />
+          </Link>
+        </nav>
+
+        {/* Mobile menu toggle */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            href="/buscar"
+            aria-label="Buscar"
+            className="p-2 text-[rgba(242,233,208,0.7)] hover:text-[#F4D77A]"
           >
             <Search size={18} />
           </Link>
-          <Link
-            href="/ler/sinopse"
-            className="hidden md:inline-flex btn-primary text-xs !py-1.5 !px-3"
-          >
-            Começar Leitura
-          </Link>
           <button
-            className="xl:hidden text-[#D7A83E] p-1.5"
             onClick={() => setOpen(!open)}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
+            className="p-2 text-[#D7A83E] hover:text-[#F4D77A]"
           >
-            {open ? <X size={24} /> : <Menu size={24} />}
+            {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Nav */}
       {open && (
-        <nav
-          className="xl:hidden bg-[#03070B]/98 border-t border-[rgba(215,168,62,0.2)] px-6 py-6 max-h-[85vh] overflow-y-auto"
-          aria-label="Menu mobile"
-        >
-          <div className="grid grid-cols-2 gap-3 mb-6">
-            <Link
-              href="/ler/sinopse"
-              onClick={() => setOpen(false)}
-              className="btn-primary text-center text-xs !py-2.5"
-            >
-              Iniciar da Sinopse
-            </Link>
-            <Link
-              href="/arquivo-0"
-              onClick={() => setOpen(false)}
-              className="btn-ghost text-center text-xs !py-2.5"
-            >
-              Ver Arquivo 0
-            </Link>
-          </div>
-          <div className="flex flex-col divide-y divide-[rgba(215,168,62,0.1)]">
-            {navItems.map((n) => (
+        <div className="lg:hidden bg-[#03070B]/98 border-b border-[rgba(215,168,62,0.2)] px-4 py-6">
+          <nav className="flex flex-col gap-2" aria-label="Navegação mobile">
+            {navHub.map((item) => (
               <Link
-                key={n.href}
-                href={n.href}
-                className="py-3 nav-link text-sm"
+                key={item.href}
+                href={item.href}
                 onClick={() => setOpen(false)}
+                className={`px-3 py-2.5 rounded text-sm font-ui tracking-wider transition-colors flex items-center gap-2.5 ${
+                  item.highlight
+                    ? "bg-[#8F1D2C]/30 border border-[#8F1D2C] text-[#F87171]"
+                    : "text-[rgba(242,233,208,0.85)] hover:text-[#F4D77A] hover:bg-[#0C3550]/40"
+                }`}
               >
-                {n.label}
+                <item.icon size={16} className={item.highlight ? "text-[#F87171]" : "text-[#D7A83E]"} />
+                {item.label}
               </Link>
             ))}
-            <Link
-              href="/admin"
-              className="py-3 nav-link text-xs text-[rgba(215,168,62,0.4)]"
-              onClick={() => setOpen(false)}
-            >
-              Painel Admin
-            </Link>
-          </div>
-        </nav>
+          </nav>
+        </div>
       )}
     </header>
   );
