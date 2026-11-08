@@ -8,14 +8,41 @@ import Medieval3DCanvas from "@/components/interactive/Medieval3DCanvas";
 export default function PrefeituraPage() {
   const [titulo, setTitulo] = useState("");
   const [autor, setAutor] = useState("");
+  const [contato, setContato] = useState("");
   const [genero, setGenero] = useState("Dark Fantasy");
   const [sinopse, setSinopse] = useState("");
   const [enviado, setEnviado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
 
-  const submeter = (e: React.FormEvent) => {
+  const submeter = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!titulo.trim() || !sinopse.trim()) return;
-    setEnviado(true);
+
+    setEnviando(true);
+    try {
+      // Disparar notificacao direta para douglacifrancisco@gmail.com e +258870297999
+      await fetch("/api/notificar-admin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tipo: "NOVA_SUBMISSAO_PREFEITURA",
+          titulo,
+          autor,
+          contato,
+          genero,
+          sinopse,
+          detalhes: {
+            adminEmail: "douglacifrancisco@gmail.com",
+            adminPhone: "+258870297999"
+          }
+        })
+      });
+    } catch (err) {
+      console.error("Falha ao contatar API:", err);
+    } finally {
+      setEnviando(false);
+      setEnviado(true);
+    }
   };
 
   return (
@@ -100,6 +127,20 @@ export default function PrefeituraPage() {
                   value={autor}
                   onChange={(e) => setAutor(e.target.value)}
                   className="w-full px-4 py-3 rounded bg-[#03070B] border border-[#D7A83E]/25 text-sm font-serif text-[#F2E9D0] focus:border-[#D7A83E] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-ui uppercase tracking-wider text-[#D7A83E] mb-2">
+                  Contato Direto (WhatsApp / Telefone / E-mail) *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Ex: +258 84... ou seu email"
+                  value={contato}
+                  onChange={(e) => setContato(e.target.value)}
+                  className="w-full px-4 py-3 rounded bg-[#03070B] border border-[#D7A83E]/25 text-sm font-ui text-[#F2E9D0] focus:border-[#D7A83E] outline-none"
                 />
               </div>
             </div>

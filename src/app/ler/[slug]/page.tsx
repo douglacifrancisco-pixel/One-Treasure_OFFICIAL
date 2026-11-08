@@ -14,6 +14,7 @@ import {
   isFavorite,
 } from "@/lib/progress";
 import VolumeQuiz from "@/components/reader/VolumeQuiz";
+import AntiBurlaReader from "@/components/reader/AntiBurlaReader";
 import {
   ChevronLeft,
   ChevronRight,
@@ -243,6 +244,60 @@ export default function LeitorPage({
               return <p key={index} className="whitespace-pre-line">{trimmed}</p>;
             })}
           </div>
+
+          {/* MÓDULO CANÔNICO ANTI-BURLA COM QUIZ OBRIGATÓRIO */}
+          <AntiBurlaReader
+            capituloId={item.slug}
+            tituloCapitulo={item.titulo}
+            tempoMinimoSegundos={90}
+            recompensaMoedas={150}
+            recompensaXp={350}
+            perguntas={[
+              {
+                id: 1,
+                pergunta: `De acordo com os acontecimentos de "${item.titulo}", qual é o princípio que dita as ações neste trecho?`,
+                opcoes: [
+                  "A força bruta sempre supera a astúcia e a estratégia.",
+                  "A percepção e a narrativa moldam a realidade e o destino dos homens.",
+                  "A marinha possui o controle absoluto e benevolente dos oceanos.",
+                  "O ouro acumulado é a única coisa que tem valor duradouro."
+                ],
+                correta: 1,
+                explicacao: "Conforme o Arquivo 0 e a filosofia de Denotas, o mundo é movido pela percepção que as pessoas acreditam."
+              },
+              {
+                id: 2,
+                pergunta: "Qual é a relação de Denotas com o tesouro deixado para trás?",
+                opcoes: [
+                  "Ele quer ser coroado rei dos piratas e ter seu nome em estátuas públicas.",
+                  "Ele busca apagar seu próprio nome da história, escolhendo ser esquecido.",
+                  "Ele quer destruir todos os navios da Broken Line com uma arma mística.",
+                  "Ele deseja apenas enriquecer para viver em paz em Mihara."
+                ],
+                correta: 1,
+                explicacao: "A sinopse e o prólogo revelam que seu sacrifício final é não ser temido nem lembrado: 'Não ser ninguém'."
+              },
+              {
+                id: 3,
+                pergunta: "Em relação ao poder natural versus anômalo e invisível neste universo:",
+                opcoes: [
+                  "O poder invisível (controle da informação e narrativas) é o mais perigoso.",
+                  "O treinamento muscular simples é a forma mais elevada de soberania.",
+                  "As frutas anômalas não possuem nenhuma fraqueza conhecida.",
+                  "Apenas reis por direito de sangue conseguem liderar tropas."
+                ],
+                correta: 0,
+                explicacao: "Quem controla a informação nunca precisa lutar; esse é o verdadeiro ápice do poder."
+              }
+            ]}
+            onCertificadoEmitido={(hash) => {
+              markRead(item.slug);
+              saveProgress(item.slug, 100);
+              setCompleted(true);
+              setNextUnlocked(true);
+              setToast("Certificado emitido! +150 Moedas de Ouro creditadas.");
+            }}
+          />
 
           <hr className="divider-gold mt-16 mb-10" />
 

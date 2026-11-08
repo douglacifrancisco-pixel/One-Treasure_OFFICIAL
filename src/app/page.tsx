@@ -19,6 +19,7 @@ import {
   Users
 } from "lucide-react";
 import Medieval3DCanvas from "@/components/interactive/Medieval3DCanvas";
+import Mihara3DWorld from "@/components/interactive/Mihara3DWorld";
 import { CIDADES_DO_REINO, MISSOES_GUILDA, MENSAGENS_TABERNA } from "@/data/justOneNovel";
 
 export default function Home() {
@@ -93,6 +94,11 @@ export default function Home() {
             <Landmark size={18} className="text-[#D7A83E]" />
             Prefeitura (Submeter Novels)
           </Link>
+        </div>
+
+        {/* MUNDO 3D ISOMÉTRICO INTERATIVO DE MIHARA */}
+        <div className="my-10 max-w-5xl mx-auto">
+          <Mihara3DWorld />
         </div>
 
         {/* DESTAQUE ESPECIAL: O PORTAL DE THASSALAR (ONE TREASURE) */}
