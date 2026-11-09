@@ -19,7 +19,6 @@ import {
   Users
 } from "lucide-react";
 import Medieval3DCanvas from "@/components/interactive/Medieval3DCanvas";
-import MiharaMMORPGWorld from "@/components/interactive/MiharaMMORPGWorld";
 import { CIDADES_DO_REINO, MISSOES_GUILDA, MENSAGENS_TABERNA } from "@/data/justOneNovel";
 
 export default function Home() {
@@ -94,11 +93,6 @@ export default function Home() {
             <Landmark size={18} className="text-[#D7A83E]" />
             Prefeitura (Submeter Novels)
           </Link>
-        </div>
-
-        {/* MUNDO MMORPG 3D REAL NAVEGÁVEL DE MIHARA */}
-        <div className="my-10 max-w-5xl mx-auto">
-          <MiharaMMORPGWorld />
         </div>
 
         {/* DESTAQUE ESPECIAL: O PORTAL DE THASSALAR (ONE TREASURE) */}
